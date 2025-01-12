@@ -1,0 +1,8 @@
+# Xcode user interface state
+BookNest.xcodeproj/project.xcworkspace/xcuserdata/
+
+# .DS_Store files
+.DS_Store
+
+# Ignore Xcode user interface state files
+BookNest.xcodeproj/project.xcworkspace/xcuserdata/tarielkhalvashi.xcuserdatad/UserInterfaceState.xcuserstate
