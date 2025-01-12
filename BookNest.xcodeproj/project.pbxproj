@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A7205BB52D33DB6E00222EBF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BB42D33DB6E00222EBF /* FirebaseAnalytics */; };
+		A7205BB72D33DB6E00222EBF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BB62D33DB6E00222EBF /* FirebaseAuth */; };
+		A7205BB92D33DB6E00222EBF /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BB82D33DB6E00222EBF /* FirebaseDatabase */; };
+		A7205BBB2D33DB6E00222EBF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BBA2D33DB6E00222EBF /* FirebaseFirestore */; };
+		A7205BBD2D33DB6E00222EBF /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BBC2D33DB6E00222EBF /* FirebaseFunctions */; };
+		A7205BBF2D33DB6E00222EBF /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BBE2D33DB6E00222EBF /* FirebaseMLModelDownloader */; };
+		A7205BC12D33DB6E00222EBF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A7205BC02D33DB6E00222EBF /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A7205AAD2D33CE3000222EBF /* BookNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +46,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7205BB92D33DB6E00222EBF /* FirebaseDatabase in Frameworks */,
+				A7205BBB2D33DB6E00222EBF /* FirebaseFirestore in Frameworks */,
+				A7205BBD2D33DB6E00222EBF /* FirebaseFunctions in Frameworks */,
+				A7205BBF2D33DB6E00222EBF /* FirebaseMLModelDownloader in Frameworks */,
+				A7205BC12D33DB6E00222EBF /* FirebaseStorage in Frameworks */,
+				A7205BB52D33DB6E00222EBF /* FirebaseAnalytics in Frameworks */,
+				A7205BB72D33DB6E00222EBF /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +95,13 @@
 			);
 			name = BookNest;
 			packageProductDependencies = (
+				A7205BB42D33DB6E00222EBF /* FirebaseAnalytics */,
+				A7205BB62D33DB6E00222EBF /* FirebaseAuth */,
+				A7205BB82D33DB6E00222EBF /* FirebaseDatabase */,
+				A7205BBA2D33DB6E00222EBF /* FirebaseFirestore */,
+				A7205BBC2D33DB6E00222EBF /* FirebaseFunctions */,
+				A7205BBE2D33DB6E00222EBF /* FirebaseMLModelDownloader */,
+				A7205BC02D33DB6E00222EBF /* FirebaseStorage */,
 			);
 			productName = BookNest;
 			productReference = A7205AAD2D33CE3000222EBF /* BookNest.app */;
@@ -107,6 +131,9 @@
 			);
 			mainGroup = A7205AA42D33CE3000222EBF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A7205AAE2D33CE3000222EBF /* Products */;
 			projectDirPath = "";
@@ -151,6 +178,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -177,6 +205,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -331,6 +360,55 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A7205BB42D33DB6E00222EBF /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		A7205BB62D33DB6E00222EBF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A7205BB82D33DB6E00222EBF /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		A7205BBA2D33DB6E00222EBF /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		A7205BBC2D33DB6E00222EBF /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		A7205BBE2D33DB6E00222EBF /* FirebaseMLModelDownloader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMLModelDownloader;
+		};
+		A7205BC02D33DB6E00222EBF /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7205BB32D33DB6E00222EBF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A7205AA52D33CE3000222EBF /* Project object */;
 }
