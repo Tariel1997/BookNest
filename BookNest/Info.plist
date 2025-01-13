@@ -19,5 +19,17 @@
 			</array>
 		</dict>
 	</dict>
+    
+    <key>UIAppFonts</key>
+    <array>
+        <string>ABeeZee.ttf</string>
+        <string>AnekDevanagari.ttf</string>
+        <string>AnekDevanagari-Bold.ttf</string>
+        <string>Inter.ttf</string>
+        <string>Inter_28pt-SemiBold.ttf</string>
+        <string>Pacifico-Regular.ttf</string>
+        <string>Roboto.ttf</string>
+        <string>Roboto-Medium.ttf</string>
+    </array>
 </dict>
 </plist>
