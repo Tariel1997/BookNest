@@ -2,6 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.47342968760-8sp2gmtis3jvbgnrtthmlorf919u1gas</string>
+			</array>
+		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ABeeZee.ttf</string>
+		<string>AnekDevanagari.ttf</string>
+		<string>AnekDevanagari-Bold.ttf</string>
+		<string>Inter.ttf</string>
+		<string>Inter_28pt-SemiBold.ttf</string>
+		<string>Pacifico-Regular.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -19,17 +43,5 @@
 			</array>
 		</dict>
 	</dict>
-    
-    <key>UIAppFonts</key>
-    <array>
-        <string>ABeeZee.ttf</string>
-        <string>AnekDevanagari.ttf</string>
-        <string>AnekDevanagari-Bold.ttf</string>
-        <string>Inter.ttf</string>
-        <string>Inter_28pt-SemiBold.ttf</string>
-        <string>Pacifico-Regular.ttf</string>
-        <string>Roboto.ttf</string>
-        <string>Roboto-Medium.ttf</string>
-    </array>
 </dict>
 </plist>
