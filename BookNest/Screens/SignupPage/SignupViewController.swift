@@ -11,6 +11,7 @@ final class SignUpViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Sign up"
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.font = UIFont(name: "ABeeZee", size: 24)
         //label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +22,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Full Name"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,7 +33,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Username"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,7 +44,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Email"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -51,7 +55,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Password"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,7 +82,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Confirm Password"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -103,7 +109,7 @@ final class SignUpViewController: UIViewController {
     private let signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
-        button.backgroundColor = UIColor(red: 81/255, green: 89/255, blue: 246/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
