@@ -225,7 +225,7 @@ class LoginViewController: UIViewController {
     }
     
     private func navigateToMainView() {
-        let mainViewController = MainPageViewController()
+        let mainViewController = HomePageViewController()
         navigationController?.pushViewController(mainViewController, animated: true)
     }
     
