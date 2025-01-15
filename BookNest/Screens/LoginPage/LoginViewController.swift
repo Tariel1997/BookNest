@@ -11,7 +11,7 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "BookNest"
         label.font = UIFont(name: "Pacifico-Regular", size: 48)
-        label.textColor = UIColor(red: 81/255, green: 89/255, blue: 246/255, alpha: 1)
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -20,7 +20,8 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Email"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -37,7 +38,8 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Password"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,7 +57,8 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "New To BookNest?"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .gray
+        //label.textColor = .gray
+        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +67,7 @@ class LoginViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        button.setTitleColor(UIColor(red: 81/255, green: 89/255, blue: 246/255, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1), for: .normal)
         button.addTarget(self, action: #selector(navigateToSignup), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -112,7 +115,7 @@ class LoginViewController: UIViewController {
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Log In", for: .normal)
-        button.backgroundColor = UIColor(red: 81/255, green: 89/255, blue: 246/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         button.layer.cornerRadius = 12
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
