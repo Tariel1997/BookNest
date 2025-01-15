@@ -6,3 +6,6 @@ BookNest.xcodeproj/project.xcworkspace/xcuserdata/
 
 # Ignore Xcode user interface state files
 BookNest.xcodeproj/project.xcworkspace/xcuserdata/tarielkhalvashi.xcuserdatad/UserInterfaceState.xcuserstate
+
+# Ignore macOS generated .DS_Store files
+.DS_Store
