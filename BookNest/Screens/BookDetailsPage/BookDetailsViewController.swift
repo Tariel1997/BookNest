@@ -231,6 +231,7 @@ final class BookDetailsViewController: UIViewController {
             addToCartButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
+        viewProfileButton.addTarget(self, action: #selector(viewProfileButtonTapped), for: .touchUpInside)
         addToCartButton.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
     }
     
@@ -315,6 +316,18 @@ final class BookDetailsViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
+    }
+    
+    @objc private func viewProfileButtonTapped() {
+        let authorProfileViewModel = AuthorProfileViewModel(authorID: viewModel.book.authorID)
+        let authorProfileVC = AuthorProfileViewController(viewModel: authorProfileViewModel)
+        authorProfileVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = authorProfileVC.sheetPresentationController {
+            sheet.detents = [.large(), .medium()]
+        }
+        
+        present(authorProfileVC, animated: true, completion: nil)
     }
     
     @objc private func addToCartButtonTapped() {
