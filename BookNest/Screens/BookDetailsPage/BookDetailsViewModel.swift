@@ -2,7 +2,7 @@ import Foundation
 
 final class BookDetailsViewModel {
     
-    private let book: Book
+    public let book: Book
     private let cartManager = CartManager()
     
     init(book: Book) {
