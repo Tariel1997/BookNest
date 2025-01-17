@@ -99,6 +99,13 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
         cell.configure(with: book)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let book = isSearching ? filteredBooks[indexPath.item] : viewModel.books[indexPath.item]
+        let detailsViewModel = BookDetailsViewModel(book: book)
+        let detailsViewController = BookDetailsViewController(viewModel: detailsViewModel)
+        navigationController?.pushViewController(detailsViewController, animated: true)
+    }
 }
 
 extension HomePageViewController: UISearchBarDelegate {
