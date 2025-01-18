@@ -224,9 +224,15 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(signupViewController, animated: true)
     }
     
+    //    private func navigateToMainView() {
+    //        let mainViewController = HomePageViewController()
+    //        navigationController?.pushViewController(mainViewController, animated: true)
+    //    }
+    
     private func navigateToMainView() {
-        let mainViewController = HomePageViewController()
-        navigationController?.pushViewController(mainViewController, animated: true)
+        let mainTabBarController = MainTabBarController()
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        present(mainTabBarController, animated: true, completion: nil)
     }
     
     @objc private func togglePasswordVisibility() {
