@@ -229,10 +229,21 @@ class LoginViewController: UIViewController {
     //        navigationController?.pushViewController(mainViewController, animated: true)
     //    }
     
+//    private func navigateToMainView() {
+//        let mainTabBarController = MainTabBarController()
+//        mainTabBarController.modalPresentationStyle = .fullScreen
+//        present(mainTabBarController, animated: true, completion: nil)
+//    }
+    
     private func navigateToMainView() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = scene.windows.first else {
+            return
+        }
+        
         let mainTabBarController = MainTabBarController()
-        mainTabBarController.modalPresentationStyle = .fullScreen
-        present(mainTabBarController, animated: true, completion: nil)
+        window.rootViewController = mainTabBarController
+        window.makeKeyAndVisible()
     }
     
     @objc private func togglePasswordVisibility() {

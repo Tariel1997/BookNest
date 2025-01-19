@@ -32,5 +32,8 @@ final class MainTabBarController: UITabBarController {
         appearance.backgroundColor = UIColor.systemBackground
         tabBar.isTranslucent = false
         tabBar.tintColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
+        
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
     }
 }
