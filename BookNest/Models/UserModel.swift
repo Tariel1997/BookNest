@@ -8,4 +8,5 @@ struct User: Codable, Identifiable {
     var name: String
     var surname: String
     var ImageUrl: String = ""
+    var balance: Double
 }

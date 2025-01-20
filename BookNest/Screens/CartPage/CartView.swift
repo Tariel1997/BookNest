@@ -1,47 +1,3 @@
-//import SwiftUI
-//
-//struct CartView: View {
-//    @StateObject private var viewModel = CartViewModel()
-//
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                if let errorMessage = viewModel.errorMessage {
-//                    Text(errorMessage)
-//                        .foregroundColor(.red)
-//                        .multilineTextAlignment(.center)
-//                        .padding()
-//                } else if viewModel.cartItems.isEmpty {
-//                    Text("Your cart is empty.")
-//                        .font(.title3)
-//                        .foregroundColor(.gray)
-//                        .padding()
-//                } else {
-//                    ScrollView {
-//                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-//                            ForEach(viewModel.cartItems, id: \.title) { book in
-//                                CartItemView(book: book) {
-//                                    viewModel.deleteBookFromCart(book: book)
-//                                }
-//                            }
-//                        }
-//                        //.padding()
-//                        .padding(.horizontal)
-//                        .padding(.bottom, 80)
-//                    }
-//                }
-//            }
-//            .navigationTitle("Cart")
-//            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
-//            .edgesIgnoringSafeArea(.bottom)
-//            .onAppear {
-//                print("CartView appeared. Fetching cart items...")
-//                viewModel.fetchCartItems()
-//            }
-//        }
-//    }
-//}
-
 import SwiftUI
 
 struct CartView: View {
@@ -49,7 +5,10 @@ struct CartView: View {
     
     var body: some View {
         VStack {
-            if let errorMessage = viewModel.errorMessage {
+            if viewModel.isLoading {
+                ProgressView("Loading your cart...")
+                    .padding()
+            } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .multilineTextAlignment(.center)
@@ -78,7 +37,10 @@ struct CartView: View {
         .edgesIgnoringSafeArea(.bottom)
         .onAppear {
             print("CartView appeared. Fetching cart items...")
-            viewModel.fetchCartItems()
+            viewModel.startListeningForCartItems()
+        }
+        .onDisappear {
+            viewModel.stopListeningForCartItems()
         }
     }
 }
@@ -137,11 +99,7 @@ struct CartItemView: View {
                     .font(.title3)
                     .fontWeight(.bold)
                 
-                //Spacer()
-                
-                Button(action: {
-                    
-                }) {
+                Button(action: {}) {
                     Text("Buy")
                         .font(.body)
                         .foregroundColor(.white)

@@ -196,15 +196,32 @@ class LoginViewController: UIViewController {
         ])
     }
     
+    //    @objc private func logIn() {
+    //        viewModel.email = emailTextField.text ?? ""
+    //        viewModel.password = passwordTextField.text ?? ""
+    //        viewModel.logIn()
+    //
+    //        if viewModel.isLogedIn {
+    //            navigateToMainView()
+    //        } else {
+    //            showAlert(message: viewModel.errorMessage ?? "An error occurred.")
+    //        }
+    //    }
+    
     @objc private func logIn() {
         viewModel.email = emailTextField.text ?? ""
         viewModel.password = passwordTextField.text ?? ""
-        viewModel.logIn()
         
-        if viewModel.isLogedIn {
-            navigateToMainView()
-        } else {
-            showAlert(message: viewModel.errorMessage ?? "An error occurred.")
+        viewModel.logIn { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.navigateToMainView()
+                case .failure(let error):
+                    self?.showAlert(message: error.localizedDescription)
+                    print("Log In Error: \(error.localizedDescription)")
+                }
+            }
         }
     }
     
@@ -229,11 +246,11 @@ class LoginViewController: UIViewController {
     //        navigationController?.pushViewController(mainViewController, animated: true)
     //    }
     
-//    private func navigateToMainView() {
-//        let mainTabBarController = MainTabBarController()
-//        mainTabBarController.modalPresentationStyle = .fullScreen
-//        present(mainTabBarController, animated: true, completion: nil)
-//    }
+    //    private func navigateToMainView() {
+    //        let mainTabBarController = MainTabBarController()
+    //        mainTabBarController.modalPresentationStyle = .fullScreen
+    //        present(mainTabBarController, animated: true, completion: nil)
+    //    }
     
     private func navigateToMainView() {
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

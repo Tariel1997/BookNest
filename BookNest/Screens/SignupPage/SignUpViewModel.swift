@@ -54,21 +54,56 @@ final class SignUpViewModel: ObservableObject {
         }
     }
     
+    //    func saveUserInfo() {
+    //        let firestore = Firestore.firestore()
+    //        guard let id = Auth.auth().currentUser?.uid else { return }
+    //        guard let mail = Auth.auth().currentUser?.email else { return }
+    //        let user = User(uid: id, email: mail, name: userName, surname: fullName)
+    //        do {
+    //            try firestore.collection("Users")
+    //                .document(id)
+    //                .setData(from: user) { error in
+    //                    if let error = error {
+    //                        print("failed to save user data \(user)")
+    //                    }
+    //                }
+    //        } catch {
+    //            print("failed saving user data")
+    //        }
+    //    }
+    
     func saveUserInfo() {
         let firestore = Firestore.firestore()
         guard let id = Auth.auth().currentUser?.uid else { return }
         guard let mail = Auth.auth().currentUser?.email else { return }
-        let user = User(uid: id, email: mail, name: userName, surname: fullName)
+        
+        let user = User(uid: id, email: mail, name: userName, surname: fullName, balance: 1000.0)
+        
         do {
             try firestore.collection("Users")
                 .document(id)
                 .setData(from: user) { error in
                     if let error = error {
-                        print("failed to save user data \(user)")
+                        print("Failed to save user data: \(error.localizedDescription)")
+                    } else {
+                        print("User successfully saved!")
+                        self.createEmptyBooksCollection(for: id)
                     }
                 }
         } catch {
-            print("failed saving user data")
+            print("Failed to save user data: \(error.localizedDescription)")
+        }
+    }
+    
+    // Create an empty "Books" subcollection
+    private func createEmptyBooksCollection(for userId: String) {
+        let firestore = Firestore.firestore()
+        firestore.collection("Users").document(userId).collection("Books").document("placeholder").setData(["empty": true]) { error in
+            if let error = error {
+                print("Failed to create empty books collection: \(error.localizedDescription)")
+            } else {
+                print("Empty books collection created successfully!")
+            }
         }
     }
     

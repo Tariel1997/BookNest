@@ -20,7 +20,7 @@ final class CartManager {
             }
             
             if document?.exists == true {
-                completion(.failure(NSError(domain: "CartError", code: 409, userInfo: [NSLocalizedDescriptionKey: "Book is already in the cart."])))
+                completion(.failure(NSError(domain: "CartError", code: 409, userInfo: [NSLocalizedDescriptionKey: "This book is already in your cart."])))
             } else {
                 let bookData: [String: Any] = [
                     "authorID": book.authorID,

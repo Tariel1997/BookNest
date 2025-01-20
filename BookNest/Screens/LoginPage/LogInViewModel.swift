@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 import Firebase
@@ -16,15 +17,29 @@ class LogInViewModel: ObservableObject {
         self.isLogedIn = Auth.auth().currentUser != nil
     }
     
-    func logIn() {
+    //    func logIn() {
+    //        Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
+    //            if let error = error {
+    //                self?.handleError(error)
+    //                return
+    //            }
+    //            self?.isLogedIn = true
+    //            self?.password = ""
+    //            self?.email = ""
+    //        }
+    //    }
+    
+    func logIn(completion: @escaping (Result<Void, Error>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
                 self?.handleError(error)
+                completion(.failure(error))
                 return
             }
             self?.isLogedIn = true
             self?.password = ""
             self?.email = ""
+            completion(.success(()))
         }
     }
     
