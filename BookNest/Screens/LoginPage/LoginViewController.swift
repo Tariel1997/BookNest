@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     private let viewModel = LogInViewModel()
     private var isLoggedIn = false
@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Email"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        //label.textColor = .gray
         label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -38,7 +37,6 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Password"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        //label.textColor = .gray
         label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -57,7 +55,6 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "New To BookNest?"
         label.font = UIFont.systemFont(ofSize: 12)
-        //label.textColor = .gray
         label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -196,18 +193,6 @@ class LoginViewController: UIViewController {
         ])
     }
     
-    //    @objc private func logIn() {
-    //        viewModel.email = emailTextField.text ?? ""
-    //        viewModel.password = passwordTextField.text ?? ""
-    //        viewModel.logIn()
-    //
-    //        if viewModel.isLogedIn {
-    //            navigateToMainView()
-    //        } else {
-    //            showAlert(message: viewModel.errorMessage ?? "An error occurred.")
-    //        }
-    //    }
-    
     @objc private func logIn() {
         viewModel.email = emailTextField.text ?? ""
         viewModel.password = passwordTextField.text ?? ""
@@ -240,17 +225,6 @@ class LoginViewController: UIViewController {
         let signupViewController = SignUpViewController()
         navigationController?.pushViewController(signupViewController, animated: true)
     }
-    
-    //    private func navigateToMainView() {
-    //        let mainViewController = HomePageViewController()
-    //        navigationController?.pushViewController(mainViewController, animated: true)
-    //    }
-    
-    //    private func navigateToMainView() {
-    //        let mainTabBarController = MainTabBarController()
-    //        mainTabBarController.modalPresentationStyle = .fullScreen
-    //        present(mainTabBarController, animated: true, completion: nil)
-    //    }
     
     private func navigateToMainView() {
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

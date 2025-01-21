@@ -54,24 +54,6 @@ final class SignUpViewModel: ObservableObject {
         }
     }
     
-    //    func saveUserInfo() {
-    //        let firestore = Firestore.firestore()
-    //        guard let id = Auth.auth().currentUser?.uid else { return }
-    //        guard let mail = Auth.auth().currentUser?.email else { return }
-    //        let user = User(uid: id, email: mail, name: userName, surname: fullName)
-    //        do {
-    //            try firestore.collection("Users")
-    //                .document(id)
-    //                .setData(from: user) { error in
-    //                    if let error = error {
-    //                        print("failed to save user data \(user)")
-    //                    }
-    //                }
-    //        } catch {
-    //            print("failed saving user data")
-    //        }
-    //    }
-    
     func saveUserInfo() {
         let firestore = Firestore.firestore()
         guard let id = Auth.auth().currentUser?.uid else { return }
@@ -95,7 +77,6 @@ final class SignUpViewModel: ObservableObject {
         }
     }
     
-    // Create an empty "Books" subcollection
     private func createEmptyBooksCollection(for userId: String) {
         let firestore = Firestore.firestore()
         firestore.collection("Users").document(userId).collection("Books").document("placeholder").setData(["empty": true]) { error in
