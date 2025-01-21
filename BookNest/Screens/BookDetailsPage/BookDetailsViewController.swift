@@ -148,13 +148,13 @@ final class BookDetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.addSubview(bookImageView)
-        view.addSubview(titleLabel)
-        view.addSubview(authorLabel)
-        view.addSubview(statsStackView)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
+        contentView.addSubview(bookImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(authorLabel)
+        contentView.addSubview(statsStackView)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(genresStackView)
         contentView.addSubview(priceLabel)
@@ -163,29 +163,13 @@ final class BookDetailsViewController: UIViewController {
         authorView.addSubview(authorNameLabel)
         authorView.addSubview(authorRoleLabel)
         authorView.addSubview(viewProfileButton)
-        view.addSubview(addToCartButton)
+        contentView.addSubview(addToCartButton)
         
         NSLayoutConstraint.activate([
-            bookImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -30),
-            bookImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bookImageView.widthAnchor.constraint(equalToConstant: 160),
-            bookImageView.heightAnchor.constraint(equalToConstant: 240),
-            
-            titleLabel.topAnchor.constraint(equalTo: bookImageView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            authorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            statsStackView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 16),
-            statsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            statsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            scrollView.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 16),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: addToCartButton.topAnchor, constant: -16),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -193,7 +177,23 @@ final class BookDetailsViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            bookImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            bookImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            bookImageView.widthAnchor.constraint(equalToConstant: 160),
+            bookImageView.heightAnchor.constraint(equalToConstant: 240),
+            
+            titleLabel.topAnchor.constraint(equalTo: bookImageView.bottomAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            authorLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            statsStackView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 16),
+            statsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            statsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
@@ -207,7 +207,6 @@ final class BookDetailsViewController: UIViewController {
             authorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             authorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             authorView.heightAnchor.constraint(equalToConstant: 70),
-            authorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             authorImageView.leadingAnchor.constraint(equalTo: authorView.leadingAnchor, constant: 12),
             authorImageView.centerYAnchor.constraint(equalTo: authorView.centerYAnchor),
@@ -225,10 +224,11 @@ final class BookDetailsViewController: UIViewController {
             viewProfileButton.widthAnchor.constraint(equalToConstant: 100),
             viewProfileButton.heightAnchor.constraint(equalToConstant: 30),
             
-            addToCartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            addToCartButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            addToCartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            addToCartButton.heightAnchor.constraint(equalToConstant: 50)
+            addToCartButton.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: 16),
+            addToCartButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            addToCartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addToCartButton.heightAnchor.constraint(equalToConstant: 50),
+            addToCartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
         
         viewProfileButton.addTarget(self, action: #selector(viewProfileButtonTapped), for: .touchUpInside)
