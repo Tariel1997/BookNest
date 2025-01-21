@@ -29,6 +29,71 @@ struct CartView: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 80)
+                    
+                    VStack(spacing: 12) {
+                        HStack {
+                            Text("Total Amount")
+                                .font(.headline)
+                            Spacer()
+                            Text("$\(viewModel.totalAmount, specifier: "%.2f")")
+                                .font(.headline)
+                        }
+                        HStack {
+                            Text("Books Count")
+                                .font(.headline)
+                            Spacer()
+                            Text("\(viewModel.cartItems.count)")
+                                .font(.headline)
+                        }
+                        HStack {
+                            Text("Available Balance")
+                                .font(.headline)
+                            Spacer()
+                            Text("$\(viewModel.userBalance, specifier: "%.2f")")
+                                .font(.headline)
+                        }
+                        Divider()
+                        HStack {
+                            Text("Amount Payable")
+                                .font(.headline)
+                            Spacer()
+                            Text("$\(viewModel.totalAmount, specifier: "%.2f")")
+                                .font(.headline)
+                        }
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+                    .padding(.horizontal)
+                    
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            viewModel.checkOut { message in
+                                DispatchQueue.main.async {
+                                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                       let rootViewController = windowScene.windows.first?.rootViewController {
+                                        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                        rootViewController.present(alert, animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        }) {
+                            Text("Check-Out")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color(red: 241/255, green: 95/255, blue: 44/255))
+                                .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
+                    }
+                    .padding(.bottom, 16)
                 }
             }
         }
@@ -73,6 +138,17 @@ struct CartItemView: View {
                 Text(book.title)
                     .font(.headline)
                     .lineLimit(2)
+            }
+            
+            Text("By \(book.authorName)")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+                .lineLimit(1)
+            
+            HStack(spacing: 8) {
+                Text("$\(book.price, specifier: "%.2f")")
+                    .font(.title3)
+                    .fontWeight(.bold)
                 
                 Spacer()
                 
@@ -87,27 +163,6 @@ struct CartItemView: View {
                         .clipShape(Circle())
                 }
                 .frame(width: 15, height: 15)
-            }
-            
-            Text("By \(book.authorName)")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .lineLimit(1)
-            
-            HStack(spacing: 8) {
-                Text("$\(book.price, specifier: "%.2f")")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                
-                Button(action: {}) {
-                    Text("Buy")
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 16)
-                        .background(Color(red: 241/255, green: 95/255, blue: 44/255))
-                        .cornerRadius(8)
-                }
             }
         }
         .padding()

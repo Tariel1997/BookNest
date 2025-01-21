@@ -1,7 +1,7 @@
 import SwiftUI
 import FirebaseAuth
 
-class ProfileViewModel: ObservableObject {
+final class ProfileViewModel: ObservableObject {
     @Published var userEmail: String = ""
     @Published var errorMessage: String?
     @Published var showAlert: Bool = false
