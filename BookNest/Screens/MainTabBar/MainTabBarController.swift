@@ -30,7 +30,7 @@ final class MainTabBarController: UITabBarController {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.systemBackground
-        tabBar.isTranslucent = false
+        tabBar.isTranslucent = true
         tabBar.tintColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         
         tabBar.standardAppearance = appearance

@@ -21,16 +21,22 @@ struct BooksView: View {
                         .padding()
                 } else {
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                        VStack(spacing: 16) {
                             ForEach(viewModel.userBooks, id: \.title) { book in
                                 BookItemView(book: book)
                             }
                         }
                         .padding(.horizontal)
+                        //.padding(.bottom, 16)
                     }
+//                    .safeAreaInset(edge: .bottom) {
+//                        Color.clear
+//                            .frame(height: 80)
+//                    }
                 }
             }
-            .navigationTitle("My Books")
+            .navigationTitle("Your Books")
+            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
             .onAppear {
                 viewModel.fetchUserBooks()
             }
@@ -42,33 +48,51 @@ struct BookItemView: View {
     let book: Book
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        HStack(alignment: .top, spacing: 16) {
             AsyncImage(url: URL(string: book.imageUrl)) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 160, height: 200)
+                        .frame(width: 80, height: 120)
                         .cornerRadius(8)
                 } else if phase.error != nil {
                     Color.red
-                        .frame(width: 160, height: 200)
+                        .frame(width: 80, height: 120)
                         .cornerRadius(8)
                 } else {
                     Color.gray.opacity(0.3)
-                        .frame(width: 160, height: 200)
+                        .frame(width: 80, height: 120)
                         .cornerRadius(8)
                 }
             }
             
-            Text(book.title)
-                .font(.headline)
-                .lineLimit(2)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(book.title)
+                    .font(.headline)
+                    .lineLimit(2)
+                
+                Text(book.authorName)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                Text("Rating: \(String(format: "%.1f", book.rating))")
+                    .font(.subheadline)
+                    .foregroundColor(.orange)
+                
+                HStack {
+                    ForEach(book.genres, id: \.self) { genre in
+                        Text(genre)
+                            .font(.caption)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(8)
+                    }
+                }
+            }
             
-            Text("\(book.authorName)")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .lineLimit(2)
+            Spacer()
         }
         .padding()
         .background(Color.white)
