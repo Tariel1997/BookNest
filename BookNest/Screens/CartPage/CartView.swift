@@ -23,7 +23,7 @@ struct CartView: View {
                             .font(.title3)
                             .foregroundColor(.pink)
                             .padding()
-                            .background(Color(red: 255/255, green: 240/255, blue: 230/255))
+                            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
                             .cornerRadius(8)
                     } else {
                         ScrollView {
