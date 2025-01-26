@@ -40,6 +40,11 @@ struct ProfileView: View {
                         .padding(.top, 4)
                 }
                 
+                Text("Balance: $\(String(format: "%.2f", viewModel.profile.balance))")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.top, 4)
+                
                 VStack(spacing: 5) {
                     Text("Full Name")
                         .font(.subheadline)
@@ -116,11 +121,30 @@ struct ProfileView: View {
         }
     }
     
+    //    private func logOut() {
+    //        do {
+    //            try Auth.auth().signOut()
+    //            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+    //               let window = windowScene.windows.first {
+    //                window.rootViewController = LoginViewController()
+    //                window.makeKeyAndVisible()
+    //            }
+    //        } catch {
+    //            print("Error signing out: \(error.localizedDescription)")
+    //        }
+    //    }
+    
     private func logOut() {
         do {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
+                tabBarController.clearTabBarControllers()
+            }
+            
             try Auth.auth().signOut()
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
+            
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = scene.windows.first {
                 window.rootViewController = LoginViewController()
                 window.makeKeyAndVisible()
             }

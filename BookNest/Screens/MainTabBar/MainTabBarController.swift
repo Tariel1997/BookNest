@@ -36,4 +36,15 @@ final class MainTabBarController: UITabBarController {
         tabBar.standardAppearance = appearance
         tabBar.scrollEdgeAppearance = appearance
     }
+    
+    func clearTabBarControllers() {
+        viewControllers?.forEach { controller in
+            if let navController = controller as? UINavigationController {
+                navController.viewControllers.forEach { $0.removeFromParent() }
+            }
+            controller.removeFromParent()
+            controller.view.removeFromSuperview()
+        }
+        viewControllers = nil
+    }
 }

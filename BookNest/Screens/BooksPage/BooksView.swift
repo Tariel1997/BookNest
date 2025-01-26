@@ -5,43 +5,47 @@ struct BooksView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading books...")
-                        .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                } else if viewModel.userBooks.isEmpty {
-                    Text("No books purchased yet.")
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            ForEach(viewModel.userBooks, id: \.title) { book in
-                                BookItemView(book: book)
+            ZStack {
+                Color(red: 250/255, green: 245/255, blue: 230/255)
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    if viewModel.isLoading {
+                        ProgressView("Loading books...")
+                            .padding()
+                    } else if let errorMessage = viewModel.errorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    } else if viewModel.userBooks.isEmpty {
+                        Text("No books purchased yet.")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            VStack(spacing: 16) {
+                                ForEach(viewModel.userBooks, id: \.title) { book in
+                                    NavigationLink(destination: BookDetailView(bookId: book.title)) {
+                                        BookItemView(book: book)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
-                        //.padding(.bottom, 16)
                     }
-//                    .safeAreaInset(edge: .bottom) {
-//                        Color.clear
-//                            .frame(height: 80)
-//                    }
                 }
-            }
-            .navigationTitle("Your Books")
-            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
-            .onAppear {
-                viewModel.fetchUserBooks()
+                .navigationTitle("Your Books")
+                .background(Color(red: 250/255, green: 245/255, blue: 230/255))
+                .onAppear {
+                    viewModel.fetchUserBooks()
+                }
             }
         }
     }
+    
 }
 
 struct BookItemView: View {

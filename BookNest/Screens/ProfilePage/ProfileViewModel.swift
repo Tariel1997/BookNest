@@ -7,8 +7,14 @@ final class ProfileViewModel: ObservableObject {
     @Published var profileImage: UIImage? = nil
     @Published var isLoading: Bool = false
     
+    private var listener: ListenerRegistration?
+    
     init() {
         fetchUser()
+    }
+    
+    deinit {
+        listener?.remove()
     }
     
     private func fetchUser() {
@@ -20,9 +26,9 @@ final class ProfileViewModel: ObservableObject {
         let firestore = Firestore.firestore()
         isLoading = true
         
-        firestore.collection("Users")
+        listener = firestore.collection("Users")
             .document(userId)
-            .getDocument { [weak self] snapshot, error in
+            .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.isLoading = false
