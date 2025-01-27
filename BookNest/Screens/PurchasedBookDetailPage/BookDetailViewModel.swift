@@ -34,7 +34,7 @@ final class BookDetailViewModel: ObservableObject {
                     return
                 }
                 
-                if let data = snapshot?.data(), let book = try? snapshot?.data(as: Book.self) {
+                if let _ /*data*/ = snapshot?.data(), let book = try? snapshot?.data(as: Book.self) {
                     DispatchQueue.main.async {
                         self?.book = book
                     }

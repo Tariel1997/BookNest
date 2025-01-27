@@ -40,11 +40,27 @@ final class MainTabBarController: UITabBarController {
     func clearTabBarControllers() {
         viewControllers?.forEach { controller in
             if let navController = controller as? UINavigationController {
-                navController.viewControllers.forEach { $0.removeFromParent() }
+                navController.viewControllers.forEach { childController in
+                    childController.removeFromParent()
+                    childController.view.removeFromSuperview()
+                }
             }
-            controller.removeFromParent()
+
+            if let hostingController = controller as? UIHostingController<AnyView> {
+                hostingController.view.removeFromSuperview()
+                hostingController.removeFromParent()
+            }
+
             controller.view.removeFromSuperview()
+            controller.removeFromParent()
         }
+        
         viewControllers = nil
+
+        tabBar.removeFromSuperview()
+    }
+    
+    deinit {
+        print("\(Self.self) deinitialized")
     }
 }

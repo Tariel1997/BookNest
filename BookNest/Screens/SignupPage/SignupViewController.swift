@@ -56,17 +56,27 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
+    //    private let passwordField: UITextField = {
+    //        let textField = UITextField()
+    //        textField.placeholder = "Password"
+    //        textField.isSecureTextEntry = true
+    //        textField.borderStyle = .roundedRect
+    //        textField.rightViewMode = .always
+    //        let eyeButton = UIButton(type: .custom)
+    //        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+    //        eyeButton.tintColor = .gray
+    //        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+    //        textField.rightView = eyeButton
+    //        textField.translatesAutoresizingMaskIntoConstraints = false
+    //        return textField
+    //    }()
+    
     private let passwordField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
         textField.borderStyle = .roundedRect
         textField.rightViewMode = .always
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        eyeButton.tintColor = .gray
-        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        textField.rightView = eyeButton
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -80,17 +90,27 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
+    //    private let confirmPasswordField: UITextField = {
+    //        let textField = UITextField()
+    //        textField.placeholder = "Confirm Password"
+    //        textField.isSecureTextEntry = true
+    //        textField.borderStyle = .roundedRect
+    //        textField.rightViewMode = .always
+    //        let eyeButton = UIButton(type: .custom)
+    //        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+    //        eyeButton.tintColor = .gray
+    //        eyeButton.addTarget(self, action: #selector(toggleConfirmPasswordVisibility), for: .touchUpInside)
+    //        textField.rightView = eyeButton
+    //        textField.translatesAutoresizingMaskIntoConstraints = false
+    //        return textField
+    //    }()
+    
     private let confirmPasswordField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Confirm Password"
         textField.isSecureTextEntry = true
         textField.borderStyle = .roundedRect
         textField.rightViewMode = .always
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        eyeButton.tintColor = .gray
-        eyeButton.addTarget(self, action: #selector(toggleConfirmPasswordVisibility), for: .touchUpInside)
-        textField.rightView = eyeButton
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -115,9 +135,29 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
+    private func passwordFieldSetUp() {
+        let eyeButton = UIButton(type: .custom)
+        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        eyeButton.tintColor = .gray
+        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility(sender:)), for: .touchUpInside)
+        passwordField.rightView = eyeButton
+    }
+    
+    private func confirmPasswordFieldSetUp() {
+        let confirmEyeButton = UIButton(type: .custom)
+        confirmEyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        confirmEyeButton.tintColor = .gray
+        confirmEyeButton.addTarget(self, action: #selector(toggleConfirmPasswordVisibility(sender:)), for: .touchUpInside)
+        confirmPasswordField.rightView = confirmEyeButton
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        passwordFieldSetUp()
+        confirmPasswordFieldSetUp()
+        
         setupUI()
         bindViewModel()
     }
@@ -222,7 +262,7 @@ final class SignUpViewController: UIViewController {
         
         viewModel.$isSuccess
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isSuccess in
+            .sink { /*[weak self]*/ isSuccess in
                 if isSuccess {
                     print("Sign-up successful!")
                 }
