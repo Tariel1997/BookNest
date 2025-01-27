@@ -134,18 +134,40 @@ struct ProfileView: View {
     //        }
     //    }
     
+//    private func logOut() {
+//        do {
+//            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
+//                tabBarController.clearTabBarControllers()
+//            }
+//            
+//            try Auth.auth().signOut()
+//            
+//            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//               let window = scene.windows.first {
+//                window.rootViewController = LoginViewController()
+//                window.makeKeyAndVisible()
+//            }
+//        } catch {
+//            print("Error signing out: \(error.localizedDescription)")
+//        }
+//    }
+    
     private func logOut() {
         do {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
-                tabBarController.clearTabBarControllers()
+               let window = scene.windows.first {
+                (window.rootViewController as? MainTabBarController)?.clearTabBarControllers()
+                window.rootViewController = nil
             }
             
             try Auth.auth().signOut()
             
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = scene.windows.first {
-                window.rootViewController = LoginViewController()
+                let loginVC = LoginViewController()
+                let navigationController = UINavigationController(rootViewController: loginVC)
+                window.rootViewController = navigationController
                 window.makeKeyAndVisible()
             }
         } catch {

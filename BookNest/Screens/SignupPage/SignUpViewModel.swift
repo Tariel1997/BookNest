@@ -2,6 +2,7 @@ import Foundation
 import FirebaseAuth
 import Firebase
 
+@MainActor
 final class SignUpViewModel: ObservableObject {
     @Published var fullName: String = ""
     @Published var userName: String = ""

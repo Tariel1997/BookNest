@@ -3,6 +3,7 @@ import UIKit
 final class HomePageCell: UICollectionViewCell {
     
     static let identifier = "BookCell"
+    private static let imageCache = NSCache<NSString, UIImage>()
     
     private let bookImageView: UIImageView = {
         let imageView = UIImageView()
@@ -87,11 +88,45 @@ final class HomePageCell: UICollectionViewCell {
         ])
     }
     
+    //    func configure(with book: Book) {
+    //        titleLabel.text = book.title
+    //        authorLabel.text = book.authorName
+    //        ratingLabel.text = "Rating: \(book.rating)"
+    //        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview()}
+    //
+    //        for genre in book.genres {
+    //            let genreLabel = UILabel()
+    //            genreLabel.text = genre
+    //            genreLabel.font = UIFont(name: "Roboto", size: 14)
+    //            genreLabel.textColor = .darkGray
+    //            genreLabel.textAlignment = .center
+    //            genreLabel.backgroundColor = UIColor(white: 0.9, alpha: 1)
+    //            genreLabel.layer.cornerRadius = 12
+    //            genreLabel.layer.masksToBounds = true
+    //            genreLabel.translatesAutoresizingMaskIntoConstraints = false
+    //            genreLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    //            genreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 65).isActive = true
+    //            genresStackView.addArrangedSubview(genreLabel)
+    //        }
+    //
+    //        if let url = URL(string: book.imageUrl) {
+    //            DispatchQueue.global().async {
+    //                if let data = try? Data(contentsOf: url) {
+    //                    DispatchQueue.main.async {
+    //                        self.bookImageView.image = UIImage(data: data)
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    
     func configure(with book: Book) {
         titleLabel.text = book.title
         authorLabel.text = book.authorName
         ratingLabel.text = "Rating: \(book.rating)"
-        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview()}
+        
+        bookImageView.image = UIImage(named: "placeholder_image")
+        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for genre in book.genres {
             let genreLabel = UILabel()
@@ -109,10 +144,20 @@ final class HomePageCell: UICollectionViewCell {
         }
         
         if let url = URL(string: book.imageUrl) {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        self.bookImageView.image = UIImage(data: data)
+            let urlKey = book.imageUrl as NSString
+            
+            if let cachedImage = HomePageCell.imageCache.object(forKey: urlKey) {
+                bookImageView.image = cachedImage
+            } else {
+                DispatchQueue.global().async { [weak self] in
+                    if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            HomePageCell.imageCache.setObject(image, forKey: urlKey)
+                            
+                            if book.imageUrl == url.absoluteString {
+                                self?.bookImageView.image = image
+                            }
+                        }
                     }
                 }
             }

@@ -23,6 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         navigationController.navigationBar.prefersLargeTitles = true
         
+//        if let tabBarController = window.rootViewController as? MainTabBarController {
+//            tabBarController.clearTabBarControllers()
+//        }
         
         window.rootViewController = navigationController
         self.window = window
