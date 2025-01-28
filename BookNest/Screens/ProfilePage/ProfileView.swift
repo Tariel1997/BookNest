@@ -75,40 +75,36 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                HStack(spacing: 20) {
-                    Button(action: {
-                        logOut()
-                    }) {
-                        Text("Log Out")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 120)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                    }
-                    
-                    Button(action: {
-                        viewModel.saveProfile()
-                        print("Profile saved")
-                    }) {
-                        Text("Save")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 120)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
+                Button(action: {
+                    logOut()
+                }) {
+                    Text("Log Out")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 120)
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
                 .padding(.bottom, 20)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Your Profile")
-                        .font(.largeTitle)
+                        .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.black)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        viewModel.saveProfile()
+                        print("Profile saved")
+                    }) {
+                        Text("Save")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                    }
                 }
             }
             .background(Color(red: 250/255, green: 245/255, blue: 230/255))
@@ -134,24 +130,24 @@ struct ProfileView: View {
     //        }
     //    }
     
-//    private func logOut() {
-//        do {
-//            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
-//                tabBarController.clearTabBarControllers()
-//            }
-//            
-//            try Auth.auth().signOut()
-//            
-//            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//               let window = scene.windows.first {
-//                window.rootViewController = LoginViewController()
-//                window.makeKeyAndVisible()
-//            }
-//        } catch {
-//            print("Error signing out: \(error.localizedDescription)")
-//        }
-//    }
+    //    private func logOut() {
+    //        do {
+    //            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+    //               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
+    //                tabBarController.clearTabBarControllers()
+    //            }
+    //
+    //            try Auth.auth().signOut()
+    //
+    //            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+    //               let window = scene.windows.first {
+    //                window.rootViewController = LoginViewController()
+    //                window.makeKeyAndVisible()
+    //            }
+    //        } catch {
+    //            print("Error signing out: \(error.localizedDescription)")
+    //        }
+    //    }
     
     private func logOut() {
         do {
