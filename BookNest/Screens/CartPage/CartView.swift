@@ -2,17 +2,20 @@ import SwiftUI
 
 struct CartView: View {
     @StateObject private var viewModel = CartViewModel()
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 250/255, green: 245/255, blue: 230/255)
+                //Color(red: 250/255, green: 245/255, blue: 230/255)
+                (isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     if viewModel.isLoading {
                         ProgressView("Loading your cart...")
                             .padding()
+                            .foregroundColor(isDarkMode ? .white : .black)
                     } else if let errorMessage = viewModel.errorMessage {
                         Text(errorMessage)
                             .foregroundColor(.red)
@@ -21,17 +24,19 @@ struct CartView: View {
                     } else if viewModel.cartItems.isEmpty {
                         Text("Your cart is empty.")
                             .font(.title3)
-                            .foregroundColor(.pink)
+                            //.foregroundColor(.pink)
+                            .foregroundColor(isDarkMode ? .white : .pink)
                             .padding()
-                            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
+                            //.background(Color(red: 250/255, green: 245/255, blue: 230/255))
+                            .background(isDarkMode ? Color.gray.opacity(0.2) : Color(red: 250/255, green: 245/255, blue: 230/255))
                             .cornerRadius(8)
                     } else {
                         ScrollView {
                             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                                 ForEach(viewModel.cartItems, id: \.title) { book in
-                                    CartItemView(book: book) {
+                                    CartItemView(book: book, onDelete: {
                                         viewModel.deleteBookFromCart(book: book)
-                                    }
+                                    }, isDarkMode: isDarkMode)
                                 }
                             }
                             .padding(.horizontal)
@@ -41,37 +46,48 @@ struct CartView: View {
                                 HStack {
                                     Text("Total Amount")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                     Spacer()
                                     Text("$\(viewModel.totalAmount, specifier: "%.2f")")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                                 HStack {
                                     Text("Books Count")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                     Spacer()
                                     Text("\(viewModel.cartItems.count)")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                                 HStack {
                                     Text("Available Balance")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                     Spacer()
                                     Text("$\(viewModel.userBalance, specifier: "%.2f")")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                                 Divider()
+                                    .background(isDarkMode ? Color.white : Color.gray)
                                 HStack {
                                     Text("Amount Payable")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                     Spacer()
                                     Text("$\(viewModel.totalAmount, specifier: "%.2f")")
                                         .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                             }
                             .padding()
-                            .background(Color.white)
+                            //.background(Color.white)
+                            .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
                             .cornerRadius(12)
-                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+                            //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+                            .shadow(color: isDarkMode ? Color.clear : Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
                             .padding(.horizontal)
                             
                             HStack {
@@ -93,7 +109,8 @@ struct CartView: View {
                                         .foregroundColor(.white)
                                         .padding()
                                         .frame(maxWidth: .infinity)
-                                        .background(Color(red: 241/255, green: 95/255, blue: 44/255))
+                                        //.background(Color(red: 241/255, green: 95/255, blue: 44/255))
+                                        .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
                                         .cornerRadius(10)
                                 }
                                 .padding(.horizontal)
@@ -118,6 +135,7 @@ struct CartView: View {
 struct CartItemView: View {
     let book: Book
     let onDelete: () -> Void
+    let isDarkMode: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -142,18 +160,21 @@ struct CartItemView: View {
             HStack {
                 Text(book.title)
                     .font(.headline)
+                    .foregroundColor(isDarkMode ? .white : .black)
                     .lineLimit(2)
             }
             
             Text("By \(book.authorName)")
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                //.foregroundColor(.gray)
+                .foregroundColor(isDarkMode ? .white : .gray)
                 .lineLimit(1)
             
             HStack(spacing: 8) {
                 Text("$\(book.price, specifier: "%.2f")")
                     .font(.title3)
                     .fontWeight(.bold)
+                    .foregroundColor(isDarkMode ? .white : .black)
                 
                 Spacer()
                 
@@ -171,8 +192,10 @@ struct CartItemView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        //.background(Color.white)
+        .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
         .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+        //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
+        .shadow(color: isDarkMode ? Color.clear : Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
 }

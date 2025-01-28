@@ -26,7 +26,7 @@ final class HomePageCell: UICollectionViewCell {
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Roboto-Medium", size: 16)
-        label.textColor = .gray
+        //label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +34,7 @@ final class HomePageCell: UICollectionViewCell {
     private let ratingLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Inter", size: 14)
-        label.textColor = .orange
+        //label.textColor = .orange
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -120,10 +120,18 @@ final class HomePageCell: UICollectionViewCell {
     //        }
     //    }
     
-    func configure(with book: Book) {
+    func configure(with book: Book, isDarkMode: Bool) {
         titleLabel.text = book.title
+        titleLabel.textColor = isDarkMode ? .white : .black
+        
         authorLabel.text = book.authorName
+        authorLabel.textColor = isDarkMode ? .lightGray : .gray
+        
         ratingLabel.text = "Rating: \(book.rating)"
+        ratingLabel.textColor = isDarkMode ? .yellow : .orange
+        
+        backgroundColor = isDarkMode ? UIColor(white: 0.5, alpha: 0.2) : UIColor.white
+        layer.cornerRadius = 12
         
         bookImageView.image = UIImage(named: "placeholder_image")
         genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
