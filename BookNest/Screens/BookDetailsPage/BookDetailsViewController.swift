@@ -1,12 +1,21 @@
 import UIKit
+import SwiftUI
 
 final class BookDetailsViewController: UIViewController {
     
     private let viewModel: BookDetailsViewModel
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     init(viewModel: BookDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateColors),
+            name: .darkModeChanged,
+            object: nil
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -124,7 +133,7 @@ final class BookDetailsViewController: UIViewController {
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+        //button.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -145,6 +154,28 @@ final class BookDetailsViewController: UIViewController {
         view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         setupUI()
         configureData()
+        updateColors()
+    }
+    
+    @objc private func updateColors() {
+        let backgroundColor = isDarkMode ? UIColor.black : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        let textColor = isDarkMode ? UIColor.white : UIColor.black
+        let secondaryTextColor = isDarkMode ? UIColor.lightGray : UIColor.gray
+        let buttonBackgroundColor = isDarkMode ? UIColor(white: 0.5, alpha: 0.2) : UIColor.systemBlue.withAlphaComponent(0.1)
+        
+        view.backgroundColor = backgroundColor
+        titleLabel.textColor = textColor
+        authorLabel.textColor = secondaryTextColor
+        authorNameLabel.textColor = textColor
+        descriptionLabel.textColor = textColor
+        priceLabel.textColor = textColor
+        viewProfileButton.backgroundColor = buttonBackgroundColor
+        genresStackView.arrangedSubviews.forEach { view in
+            if let label = view as? UILabel {
+                label.backgroundColor = isDarkMode ? UIColor.darkGray : UIColor(white: 0.9, alpha: 1)
+                label.textColor = textColor
+            }
+        }
     }
     
     private func setupUI() {
@@ -306,7 +337,7 @@ final class BookDetailsViewController: UIViewController {
         let valueLabel = UILabel()
         valueLabel.text = value
         valueLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        valueLabel.textColor = .black
+        valueLabel.textColor = isDarkMode ? UIColor.white : UIColor.black
         valueLabel.textAlignment = .center
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
@@ -338,5 +369,9 @@ final class BookDetailsViewController: UIViewController {
                 self?.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .darkModeChanged, object: nil)
     }
 }

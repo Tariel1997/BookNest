@@ -5,6 +5,10 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @State private var isImagePickerPresented = false
     //@Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.scenePhase) private var scenePhase
+    //@State private var isDarkMode: Bool = false
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
         NavigationView {
@@ -26,7 +30,8 @@ struct ProfileView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120)
-                        .foregroundColor(.gray)
+                        //.foregroundColor(.gray)
+                        .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                         .clipShape(Circle())
                         .onTapGesture {
                             isImagePickerPresented.toggle()
@@ -36,25 +41,30 @@ struct ProfileView: View {
                 if !viewModel.profile.email.isEmpty {
                     Text("Email: \(viewModel.profile.email)")
                         .font(.footnote)
-                        .foregroundColor(.gray)
+                        //.foregroundColor(.gray)
+                        .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                         .padding(.top, 4)
                 }
                 
                 Text("Balance: $\(String(format: "%.2f", viewModel.profile.balance))")
                     .font(.footnote)
-                    .foregroundColor(.gray)
+                    //.foregroundColor(.gray)
+                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .gray)
                     .padding(.top, 4)
                 
                 VStack(spacing: 5) {
                     Text("Full Name")
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        //.foregroundColor(.gray)
+                        .foregroundColor(isDarkMode ? .white : .gray)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
                     TextField("Enter your name", text: $viewModel.profile.name)
                         .padding(20)
-                        .background(Color.white)
+                        //.background(Color.white)
+                        .background(isDarkMode ? Color.gray.opacity(0.4) : Color.white)
+                        .foregroundColor(isDarkMode ? .white : .black)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.horizontal)
                 }
@@ -62,13 +72,16 @@ struct ProfileView: View {
                 VStack(spacing: 5) {
                     Text("Username")
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        //.foregroundColor(.gray)
+                        .foregroundColor(isDarkMode ? .white : .gray)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
                     TextField("Enter your username", text: $viewModel.profile.surname)
                         .padding(20)
-                        .background(Color.white)
+                        //.background(Color.white)
+                        .background(isDarkMode ? Color.gray.opacity(0.4) : Color.white)
+                        .foregroundColor(isDarkMode ? .white : .black)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.horizontal)
                 }
@@ -83,7 +96,8 @@ struct ProfileView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 120)
-                        .background(Color.red)
+                        //.background(Color.red)
+                        .background(isDarkMode ? Color.red.opacity(0.8) : Color.red)
                         .cornerRadius(10)
                 }
                 .padding(.bottom, 20)
@@ -93,7 +107,8 @@ struct ProfileView: View {
                     Text("Your Profile")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        //.foregroundColor(.black)
+                        .foregroundColor(isDarkMode ? .white : .black)
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -103,11 +118,30 @@ struct ProfileView: View {
                     }) {
                         Text("Save")
                             .font(.headline)
-                            .foregroundColor(.blue)
+                            //.foregroundColor(.blue)
+                            .foregroundColor(isDarkMode ? .cyan : .blue)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        isDarkMode.toggle()
+                        NotificationCenter.default.post(name: .darkModeChanged, object: nil)
+                    }) {
+                        Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
+                            .foregroundColor(isDarkMode ? .yellow : .blue)
                     }
                 }
             }
-            .background(Color(red: 250/255, green: 245/255, blue: 230/255))
+            .preferredColorScheme(isDarkMode ? .dark : .light)
+            //.background(Color(red: 250/255, green: 245/255, blue: 230/255))
+            .background(isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
+//            .onAppear {
+//                isDarkMode = (colorScheme == .dark)
+//            }
+//            .onChange(of: scenePhase) { _ in
+//                isDarkMode = (colorScheme == .dark)
+//            }
             .sheet(isPresented: $isImagePickerPresented) {
                 ImagePicker(image: $viewModel.profileImage)
                     .onChange(of: viewModel.profileImage) { _ in

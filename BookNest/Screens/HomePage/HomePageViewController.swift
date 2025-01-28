@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 final class HomePageViewController: UIViewController {
     
@@ -6,11 +7,13 @@ final class HomePageViewController: UIViewController {
     private var filteredBooks: [Book] = []
     private var isSearching = false
     
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular Books"
         label.font = UIFont(name: "Pacifico-Regular", size: 24)
-        label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
+        //label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,7 +26,7 @@ final class HomePageViewController: UIViewController {
         searchBar.layer.cornerRadius = 12
         searchBar.layer.masksToBounds = true
         searchBar.backgroundImage = UIImage()
-        searchBar.searchTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        //searchBar.searchTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         searchBar.searchTextField.layer.cornerRadius = 12
         searchBar.searchTextField.clipsToBounds = true
         return searchBar
@@ -42,8 +45,10 @@ final class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
-        collectionView.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+//        view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+//        collectionView.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        setupColors()
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeChanged), name: .darkModeChanged, object: nil)
         
         searchBar.delegate = self
         collectionView.register(HomePageCell.self, forCellWithReuseIdentifier: HomePageCell.identifier)
@@ -57,6 +62,21 @@ final class HomePageViewController: UIViewController {
         setupConstraints()
         bindViewModel()
         viewModel.fetchBooks()
+    }
+    
+    @objc private func darkModeChanged() {
+        setupColors()
+        collectionView.reloadData()
+    }
+    
+    private func setupColors() {
+        view.backgroundColor = isDarkMode ? UIColor.black : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        collectionView.backgroundColor = isDarkMode ? UIColor.black : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        
+        titleLabel.textColor = isDarkMode ? UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1) : UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
+        searchBar.searchTextField.backgroundColor = isDarkMode ? UIColor.darkGray : UIColor(white: 0.9, alpha: 1)
+        searchBar.searchTextField.textColor = isDarkMode ? UIColor.white : UIColor.black
+        searchBar.searchTextField.tintColor = isDarkMode ? UIColor.lightGray : UIColor.gray
     }
     
     private func setupConstraints() {
@@ -96,7 +116,8 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
         let book = isSearching ? filteredBooks[indexPath.item] : viewModel.books[indexPath.item]
-        cell.configure(with: book)
+        //cell.configure(with: book)
+        cell.configure(with: book, isDarkMode: isDarkMode)
         return cell
     }
     
@@ -105,6 +126,12 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
         let detailsViewModel = BookDetailsViewModel(book: book)
         let detailsViewController = BookDetailsViewController(viewModel: detailsViewModel)
         navigationController?.pushViewController(detailsViewController, animated: true)
+    }
+}
+
+extension HomePageViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
     }
 }
 

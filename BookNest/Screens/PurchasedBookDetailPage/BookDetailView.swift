@@ -10,6 +10,7 @@ struct BookDetailView: View {
     @State private var downloadProgress: Float = 0.0
     @State private var isDownloading: Bool = false
     @State private var isDownloaded: Bool = false
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
         ScrollView {
@@ -17,7 +18,7 @@ struct BookDetailView: View {
                 ProgressView("Loading book details...")
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
-                    .foregroundColor(.red)
+                    .foregroundColor(isDarkMode ? .red.opacity(0.7) : .red)
                     .multilineTextAlignment(.center)
                     .padding()
             } else if let book = viewModel.book {
@@ -28,6 +29,7 @@ struct BookDetailView: View {
                             .font(.title)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
+                            .foregroundColor(isDarkMode ? .white : .black)
                             .padding(.vertical)
                         Spacer()
                     }
@@ -53,27 +55,25 @@ struct BookDetailView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Author: \(book.authorName)")
-                                //.font(.subheadline)
                                 .font(.inter(size: 16))
-                                .foregroundColor(.gray)
+                                .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                             
                             Text("Category: \(book.genres.joined(separator: ", "))")
-                                //.font(.subheadline)
                                 .font(.roboto(size: 16))
-                                .foregroundColor(.gray)
+                                .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                             
                             Text("Rating: \(String(format: "%.2f", book.rating)) / 5")
-                                //.font(.subheadline)
                                 .font(.robotoMedium(size: 16))
-                                .foregroundColor(.orange)
+                                .foregroundColor(isDarkMode ? .yellow : .orange)
                             
                             Text("Pricing: \(String(format: "$%.2f", book.price))")
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(isDarkMode ? .white : .black)
                             
                             if isDownloading {
                                 VStack {
                                     Text("Downloading...")
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                     ProgressView(value: downloadProgress)
                                         .progressViewStyle(LinearProgressViewStyle())
                                         .padding(.top, 8)
@@ -83,12 +83,11 @@ struct BookDetailView: View {
                                     showPDFPreview = true
                                 }) {
                                     Text("Read")
-                                        //.font(.headline)
                                         .font(.robotoMedium(size: 18))
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
                                         .padding()
-                                        .background(Color(red: 241/255, green: 95/255, blue: 44/255))
+                                        .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
                                         .cornerRadius(12)
                                 }
                                 .padding(.top, 8)
@@ -97,12 +96,11 @@ struct BookDetailView: View {
                                     downloadPDF(from: book.pdfUrl)
                                 }) {
                                     Text("Download")
-                                        //.font(.headline)
                                         .font(.robotoMedium(size: 18))
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
                                         .padding()
-                                        .background(Color(red: 241/255, green: 95/255, blue: 44/255))
+                                        .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
                                         .cornerRadius(12)
                                 }
                                 .padding(.top, 8)
@@ -114,11 +112,12 @@ struct BookDetailView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Description:")
                             .font(.headline)
+                            .foregroundColor(isDarkMode ? .white : .black)
                             .padding(.horizontal)
                         
                         Text(book.description)
                             .font(.body)
-                            .foregroundColor(.gray)
+                            .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                             .padding(.horizontal)
                     }
                     .padding(.top)
@@ -127,7 +126,7 @@ struct BookDetailView: View {
             }
         }
         .navigationTitle("Your Book")
-        .background(Color(red: 250/255, green: 245/255, blue: 230/255))
+        .background(isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.fetchBook(bookId: bookId)
@@ -137,6 +136,7 @@ struct BookDetailView: View {
                 PDFKitView(fileURL: fileToPreview)
             } else {
                 Text("No file to preview")
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
         }
     }

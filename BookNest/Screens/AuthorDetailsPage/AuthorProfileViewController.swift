@@ -1,12 +1,21 @@
 import UIKit
+import SwiftUI
 
 final class AuthorProfileViewController: UIViewController {
     
     private let viewModel: AuthorProfileViewModel
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     init(viewModel: AuthorProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateColors),
+            name: .darkModeChanged,
+            object: nil
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -53,9 +62,11 @@ final class AuthorProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        //view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        view.backgroundColor = isDarkMode ? .black : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         setupUI()
         fetchAuthorData()
+        updateColors()
     }
     
     private func setupUI() {
@@ -124,5 +135,20 @@ final class AuthorProfileViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc private func updateColors() {
+        let backgroundColor = isDarkMode ? UIColor.darkGray : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
+        let textColor = isDarkMode ? UIColor.white : UIColor.black
+        //let secondaryTextColor = isDarkMode ? UIColor.lightGray : UIColor.darkGray
+        
+        view.backgroundColor = backgroundColor
+        nameLabel.textColor = textColor
+        bioLabel.textColor = textColor
+        bioLabel.textAlignment = .justified
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .darkModeChanged, object: nil)
     }
 }
