@@ -14,6 +14,10 @@ final class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        defer {
+            try? FileManager.default.removeItem(at: location)
+        }
+        
         do {
             let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let destinationURL = documentsPath.appendingPathComponent(location.lastPathComponent)

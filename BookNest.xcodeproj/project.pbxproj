@@ -18,8 +18,19 @@
 		A7205C362D33E99C00222EBF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A7205C352D33E99C00222EBF /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A7A6EACA2D4A4734007CC4FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7205AA52D33CE3000222EBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7205AAC2D33CE3000222EBF;
+			remoteInfo = BookNest;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A7205AAD2D33CE3000222EBF /* BookNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7A6EAC62D4A4734007CC4FB /* BookNestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookNestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -41,6 +52,11 @@
 			path = BookNest;
 			sourceTree = "<group>";
 		};
+		A7A6EAC72D4A4734007CC4FB /* BookNestTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BookNestTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +76,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A7A6EAC32D4A4734007CC4FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -67,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				A7205AAF2D33CE3000222EBF /* BookNest */,
+				A7A6EAC72D4A4734007CC4FB /* BookNestTests */,
 				A7205AAE2D33CE3000222EBF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				A7205AAD2D33CE3000222EBF /* BookNest.app */,
+				A7A6EAC62D4A4734007CC4FB /* BookNestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +138,29 @@
 			productReference = A7205AAD2D33CE3000222EBF /* BookNest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A7A6EAC52D4A4734007CC4FB /* BookNestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7A6EACE2D4A4734007CC4FB /* Build configuration list for PBXNativeTarget "BookNestTests" */;
+			buildPhases = (
+				A7A6EAC22D4A4734007CC4FB /* Sources */,
+				A7A6EAC32D4A4734007CC4FB /* Frameworks */,
+				A7A6EAC42D4A4734007CC4FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A7A6EACB2D4A4734007CC4FB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A7A6EAC72D4A4734007CC4FB /* BookNestTests */,
+			);
+			name = BookNestTests;
+			packageProductDependencies = (
+			);
+			productName = BookNestTests;
+			productReference = A7A6EAC62D4A4734007CC4FB /* BookNestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -125,6 +173,10 @@
 				TargetAttributes = {
 					A7205AAC2D33CE3000222EBF = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					A7A6EAC52D4A4734007CC4FB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = A7205AAC2D33CE3000222EBF;
 					};
 				};
 			};
@@ -147,12 +199,20 @@
 			projectRoot = "";
 			targets = (
 				A7205AAC2D33CE3000222EBF /* BookNest */,
+				A7A6EAC52D4A4734007CC4FB /* BookNestTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A7205AAB2D33CE3000222EBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7A6EAC42D4A4734007CC4FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -169,7 +229,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A7A6EAC22D4A4734007CC4FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A7A6EACB2D4A4734007CC4FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7205AAC2D33CE3000222EBF /* BookNest */;
+			targetProxy = A7A6EACA2D4A4734007CC4FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A7205AC12D33CE3300222EBF /* Debug */ = {
@@ -345,6 +420,40 @@
 			};
 			name = Release;
 		};
+		A7A6EACC2D4A4734007CC4FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.academy.BookNestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookNest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BookNest";
+			};
+			name = Debug;
+		};
+		A7A6EACD2D4A4734007CC4FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.academy.BookNestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookNest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BookNest";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -362,6 +471,15 @@
 			buildConfigurations = (
 				A7205AC12D33CE3300222EBF /* Debug */,
 				A7205AC22D33CE3300222EBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7A6EACE2D4A4734007CC4FB /* Build configuration list for PBXNativeTarget "BookNestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7A6EACC2D4A4734007CC4FB /* Debug */,
+				A7A6EACD2D4A4734007CC4FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
