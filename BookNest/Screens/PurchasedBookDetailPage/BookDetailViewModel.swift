@@ -1,3 +1,4 @@
+import Combine
 import FirebaseFirestore
 import FirebaseAuth
 
@@ -5,6 +6,11 @@ final class BookDetailViewModel: ObservableObject {
     @Published var book: Book? = nil
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
+    @Published var isDownloading: Bool = false
+    @Published var downloadProgress: Float = 0.0
+    @Published var isDownloaded: Bool = false
+    @Published var fileToPreview: URL? = nil
+    @Published var showPDFPreview: Bool = false
     
     private let db = Firestore.firestore()
     private let userId = Auth.auth().currentUser?.uid
@@ -34,7 +40,7 @@ final class BookDetailViewModel: ObservableObject {
                     return
                 }
                 
-                if let _ /*data*/ = snapshot?.data(), let book = try? snapshot?.data(as: Book.self) {
+                if let _ = snapshot?.data(), let book = try? snapshot?.data(as: Book.self) {
                     DispatchQueue.main.async {
                         self?.book = book
                     }
@@ -44,5 +50,41 @@ final class BookDetailViewModel: ObservableObject {
                     }
                 }
             }
+    }
+    
+    func downloadPDF(from urlString: String) {
+        guard !isDownloading else { return }
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL: \(urlString)")
+            return
+        }
+        
+        let session = URLSession(configuration: .default, delegate: DownloadDelegate(progressHandler: { [weak self] progress in
+            DispatchQueue.main.async {
+                self?.downloadProgress = progress
+            }
+        }, completionHandler: { [weak self] fileURL in
+            DispatchQueue.main.async {
+                self?.isDownloading = false
+                self?.isDownloaded = true
+                self?.fileToPreview = fileURL
+            }
+        }, errorHandler: { [weak self] error in
+            DispatchQueue.main.async {
+                self?.isDownloading = false
+                print("Error downloading PDF: \(error.localizedDescription)")
+            }
+        }), delegateQueue: .main)
+        
+        isDownloading = true
+        downloadProgress = 0.0
+        
+        let task = session.downloadTask(with: url)
+        task.resume()
+    }
+    
+    deinit {
+        print("BookDetailViewModel deinitialized")
     }
 }
