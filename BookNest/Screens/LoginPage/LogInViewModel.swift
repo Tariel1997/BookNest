@@ -83,10 +83,49 @@ final class LogInViewModel: ObservableObject {
                     completion(error)
                     return
                 }
+                self?.saveUserInfo()
                 completion(nil)
-                self?.isLogedIn = true
-                self?.password = ""
-                self?.email = ""
+            }
+        }
+    }
+    
+    private func saveUserInfo() {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("No authenticated user found")
+            return
+        }
+        
+        let firestore = Firestore.firestore()
+        let userDocument = firestore.collection("Users").document(currentUser.uid)
+        
+        userDocument.getDocument { document, error in
+            if let error = error {
+                print("Failed to fetch user data: \(error.localizedDescription)")
+                return
+            }
+            
+            if let document = document, document.exists {
+                print("User already exists in Firestore. Skipping creation.")
+            } else {
+                let user = User(
+                    uid: currentUser.uid,
+                    email: currentUser.email ?? "",
+                    name: currentUser.displayName ?? "",
+                    surname: "",
+                    balance: 1000.0
+                )
+                
+                do {
+                    try userDocument.setData(from: user) { error in
+                        if let error = error {
+                            print("Failed to save user data: \(error.localizedDescription)")
+                        } else {
+                            print("User successfully saved to Firestore!")
+                        }
+                    }
+                } catch {
+                    print("Failed to encode user data: \(error.localizedDescription)")
+                }
             }
         }
     }
