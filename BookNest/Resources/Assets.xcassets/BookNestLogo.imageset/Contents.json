@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Tariel_Khalvashi_create_an_logo_for_my_project._project_name_BookNe_02e76e80-fe1b-47d4-af39-c7731ae3857c.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
