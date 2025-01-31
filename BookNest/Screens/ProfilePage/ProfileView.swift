@@ -4,10 +4,8 @@ import FirebaseAuth
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @State private var isImagePickerPresented = false
-    //@Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
-    //@State private var isDarkMode: Bool = false
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
@@ -30,7 +28,6 @@ struct ProfileView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120)
-                        //.foregroundColor(.gray)
                         .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                         .clipShape(Circle())
                         .onTapGesture {
@@ -41,28 +38,24 @@ struct ProfileView: View {
                 if !viewModel.profile.email.isEmpty {
                     Text("Email: \(viewModel.profile.email)")
                         .font(.footnote)
-                        //.foregroundColor(.gray)
                         .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                         .padding(.top, 4)
                 }
                 
                 Text("Balance: $\(String(format: "%.2f", viewModel.profile.balance))")
                     .font(.footnote)
-                    //.foregroundColor(.gray)
                     .foregroundColor(isDarkMode ? .white.opacity(0.8) : .gray)
                     .padding(.top, 4)
                 
                 VStack(spacing: 5) {
                     Text("Full Name")
                         .font(.subheadline)
-                        //.foregroundColor(.gray)
                         .foregroundColor(isDarkMode ? .white : .gray)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
                     TextField("Enter your name", text: $viewModel.profile.name)
                         .padding(20)
-                        //.background(Color.white)
                         .background(isDarkMode ? Color.gray.opacity(0.4) : Color.white)
                         .foregroundColor(isDarkMode ? .white : .black)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -72,14 +65,12 @@ struct ProfileView: View {
                 VStack(spacing: 5) {
                     Text("Username")
                         .font(.subheadline)
-                        //.foregroundColor(.gray)
                         .foregroundColor(isDarkMode ? .white : .gray)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     
                     TextField("Enter your username", text: $viewModel.profile.surname)
                         .padding(20)
-                        //.background(Color.white)
                         .background(isDarkMode ? Color.gray.opacity(0.4) : Color.white)
                         .foregroundColor(isDarkMode ? .white : .black)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -96,7 +87,6 @@ struct ProfileView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 120)
-                        //.background(Color.red)
                         .background(isDarkMode ? Color.red.opacity(0.8) : Color.red)
                         .cornerRadius(10)
                 }
@@ -107,7 +97,6 @@ struct ProfileView: View {
                     Text("Your Profile")
                         .font(.title2)
                         .fontWeight(.bold)
-                        //.foregroundColor(.black)
                         .foregroundColor(isDarkMode ? .white : .black)
                 }
                 
@@ -118,7 +107,6 @@ struct ProfileView: View {
                     }) {
                         Text("Save")
                             .font(.headline)
-                            //.foregroundColor(.blue)
                             .foregroundColor(isDarkMode ? .cyan : .blue)
                     }
                 }
@@ -134,14 +122,7 @@ struct ProfileView: View {
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            //.background(Color(red: 250/255, green: 245/255, blue: 230/255))
             .background(isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
-//            .onAppear {
-//                isDarkMode = (colorScheme == .dark)
-//            }
-//            .onChange(of: scenePhase) { _ in
-//                isDarkMode = (colorScheme == .dark)
-//            }
             .sheet(isPresented: $isImagePickerPresented) {
                 ImagePicker(image: $viewModel.profileImage)
                     .onChange(of: viewModel.profileImage) { _ in
@@ -150,38 +131,6 @@ struct ProfileView: View {
             }
         }
     }
-    
-    //    private func logOut() {
-    //        do {
-    //            try Auth.auth().signOut()
-    //            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-    //               let window = windowScene.windows.first {
-    //                window.rootViewController = LoginViewController()
-    //                window.makeKeyAndVisible()
-    //            }
-    //        } catch {
-    //            print("Error signing out: \(error.localizedDescription)")
-    //        }
-    //    }
-    
-    //    private func logOut() {
-    //        do {
-    //            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-    //               let tabBarController = scene.windows.first?.rootViewController as? MainTabBarController {
-    //                tabBarController.clearTabBarControllers()
-    //            }
-    //
-    //            try Auth.auth().signOut()
-    //
-    //            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-    //               let window = scene.windows.first {
-    //                window.rootViewController = LoginViewController()
-    //                window.makeKeyAndVisible()
-    //            }
-    //        } catch {
-    //            print("Error signing out: \(error.localizedDescription)")
-    //        }
-    //    }
     
     private func logOut() {
         do {

@@ -45,18 +45,18 @@ final class MainTabBarController: UITabBarController {
                     childController.view.removeFromSuperview()
                 }
             }
-
+            
             if let hostingController = controller as? UIHostingController<AnyView> {
                 hostingController.view.removeFromSuperview()
                 hostingController.removeFromParent()
             }
-
+            
             controller.view.removeFromSuperview()
             controller.removeFromParent()
         }
         
         viewControllers = nil
-
+        
         tabBar.removeFromSuperview()
     }
     

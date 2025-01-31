@@ -7,7 +7,6 @@ struct CartView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                //Color(red: 250/255, green: 245/255, blue: 230/255)
                 (isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
                     .edgesIgnoringSafeArea(.all)
                 
@@ -18,21 +17,19 @@ struct CartView: View {
                             .foregroundColor(isDarkMode ? .white : .black)
                     } else if let errorMessage = viewModel.errorMessage {
                         Text(errorMessage)
-                            .foregroundColor(.red)
+                            .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                             .padding()
                     } else if viewModel.cartItems.isEmpty {
                         Text("Your cart is empty.")
                             .font(.title3)
-                            //.foregroundColor(.pink)
-                            .foregroundColor(isDarkMode ? .white : .pink)
+                            .foregroundColor(isDarkMode ? .white : .gray)
                             .padding()
-                            //.background(Color(red: 250/255, green: 245/255, blue: 230/255))
                             .background(isDarkMode ? Color.gray.opacity(0.2) : Color(red: 250/255, green: 245/255, blue: 230/255))
                             .cornerRadius(8)
                     } else {
                         ScrollView {
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20)], spacing: 16) {
                                 ForEach(viewModel.cartItems, id: \.title) { book in
                                     CartItemView(book: book, onDelete: {
                                         viewModel.deleteBookFromCart(book: book)
@@ -83,10 +80,8 @@ struct CartView: View {
                                 }
                             }
                             .padding()
-                            //.background(Color.white)
                             .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
                             .cornerRadius(12)
-                            //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
                             .shadow(color: isDarkMode ? Color.clear : Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
                             .padding(.horizontal)
                             
@@ -109,7 +104,6 @@ struct CartView: View {
                                         .foregroundColor(.white)
                                         .padding()
                                         .frame(maxWidth: .infinity)
-                                        //.background(Color(red: 241/255, green: 95/255, blue: 44/255))
                                         .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
                                         .cornerRadius(10)
                                 }
@@ -166,7 +160,6 @@ struct CartItemView: View {
             
             Text("By \(book.authorName)")
                 .font(.subheadline)
-                //.foregroundColor(.gray)
                 .foregroundColor(isDarkMode ? .white : .gray)
                 .lineLimit(1)
             
@@ -192,10 +185,8 @@ struct CartItemView: View {
             }
         }
         .padding()
-        //.background(Color.white)
         .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
         .cornerRadius(12)
-        //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
         .shadow(color: isDarkMode ? Color.clear : Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
 }

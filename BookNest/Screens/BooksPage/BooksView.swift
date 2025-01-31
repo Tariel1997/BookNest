@@ -7,7 +7,6 @@ struct BooksView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                //Color(red: 250/255, green: 245/255, blue: 230/255)
                 (isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
                     .edgesIgnoringSafeArea(.all)
                 
@@ -24,7 +23,6 @@ struct BooksView: View {
                     } else if viewModel.userBooks.isEmpty {
                         Text("No books purchased yet.")
                             .font(.title3)
-                            //.foregroundColor(.gray)
                             .foregroundColor(isDarkMode ? .white : .gray)
                             .padding()
                     } else {
@@ -43,7 +41,6 @@ struct BooksView: View {
                 }
                 .navigationTitle("Your Books")
                 .foregroundColor(isDarkMode ? .white : .black)
-                //.background(Color(red: 250/255, green: 245/255, blue: 230/255))
                 .background(isDarkMode ? Color.black : Color(red: 250/255, green: 245/255, blue: 230/255))
                 .onAppear {
                     viewModel.fetchUserBooks()
@@ -86,12 +83,10 @@ struct BookItemView: View {
                 
                 Text(book.authorName)
                     .font(.subheadline)
-                    //.foregroundColor(.gray)
                     .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
                 
                 Text("Rating: \(String(format: "%.1f", book.rating))")
                     .font(.subheadline)
-                    //.foregroundColor(.orange)
                     .foregroundColor(isDarkMode ? .yellow : .orange)
                 
                 HStack {
@@ -100,7 +95,6 @@ struct BookItemView: View {
                             .font(.caption)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            //.background(Color.gray.opacity(0.2))
                             .background(isDarkMode ? Color.gray.opacity(0.4) : Color.gray.opacity(0.2))
                             .foregroundColor(isDarkMode ? .white : .black)
                             .cornerRadius(8)
@@ -111,10 +105,8 @@ struct BookItemView: View {
             Spacer()
         }
         .padding()
-        //.background(Color.white)
         .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
         .cornerRadius(12)
-        //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
         .shadow(color: isDarkMode ? Color.black.opacity(0.5) : Color.black.opacity(0.1), radius: 4, x: 0, y: 4)
     }
 }
