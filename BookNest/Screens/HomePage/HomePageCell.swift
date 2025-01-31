@@ -26,7 +26,6 @@ final class HomePageCell: UICollectionViewCell {
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Roboto-Medium", size: 16)
-        //label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +33,6 @@ final class HomePageCell: UICollectionViewCell {
     private let ratingLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Inter", size: 14)
-        //label.textColor = .orange
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,38 +85,6 @@ final class HomePageCell: UICollectionViewCell {
             infoStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
-    
-    //    func configure(with book: Book) {
-    //        titleLabel.text = book.title
-    //        authorLabel.text = book.authorName
-    //        ratingLabel.text = "Rating: \(book.rating)"
-    //        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview()}
-    //
-    //        for genre in book.genres {
-    //            let genreLabel = UILabel()
-    //            genreLabel.text = genre
-    //            genreLabel.font = UIFont(name: "Roboto", size: 14)
-    //            genreLabel.textColor = .darkGray
-    //            genreLabel.textAlignment = .center
-    //            genreLabel.backgroundColor = UIColor(white: 0.9, alpha: 1)
-    //            genreLabel.layer.cornerRadius = 12
-    //            genreLabel.layer.masksToBounds = true
-    //            genreLabel.translatesAutoresizingMaskIntoConstraints = false
-    //            genreLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
-    //            genreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 65).isActive = true
-    //            genresStackView.addArrangedSubview(genreLabel)
-    //        }
-    //
-    //        if let url = URL(string: book.imageUrl) {
-    //            DispatchQueue.global().async {
-    //                if let data = try? Data(contentsOf: url) {
-    //                    DispatchQueue.main.async {
-    //                        self.bookImageView.image = UIImage(data: data)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     func configure(with book: Book, isDarkMode: Bool) {
         titleLabel.text = book.title

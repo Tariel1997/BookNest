@@ -65,7 +65,6 @@ final class LoginViewController: UIViewController {
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         button.setTitleColor(UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1), for: .normal)
-        //button.addTarget(self, action: #selector(navigateToSignup), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -107,7 +106,6 @@ final class LoginViewController: UIViewController {
         
         stackView.isUserInteractionEnabled = false
         
-        //button.addTarget(self, action: #selector(continueWithGoogle), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -119,7 +117,6 @@ final class LoginViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
-        //button.addTarget(self, action: #selector(logIn), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

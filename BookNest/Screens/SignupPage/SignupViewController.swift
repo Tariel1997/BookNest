@@ -56,21 +56,6 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
-    //    private let passwordField: UITextField = {
-    //        let textField = UITextField()
-    //        textField.placeholder = "Password"
-    //        textField.isSecureTextEntry = true
-    //        textField.borderStyle = .roundedRect
-    //        textField.rightViewMode = .always
-    //        let eyeButton = UIButton(type: .custom)
-    //        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-    //        eyeButton.tintColor = .gray
-    //        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-    //        textField.rightView = eyeButton
-    //        textField.translatesAutoresizingMaskIntoConstraints = false
-    //        return textField
-    //    }()
-    
     private let passwordField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
@@ -89,21 +74,6 @@ final class SignUpViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    //    private let confirmPasswordField: UITextField = {
-    //        let textField = UITextField()
-    //        textField.placeholder = "Confirm Password"
-    //        textField.isSecureTextEntry = true
-    //        textField.borderStyle = .roundedRect
-    //        textField.rightViewMode = .always
-    //        let eyeButton = UIButton(type: .custom)
-    //        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-    //        eyeButton.tintColor = .gray
-    //        eyeButton.addTarget(self, action: #selector(toggleConfirmPasswordVisibility), for: .touchUpInside)
-    //        textField.rightView = eyeButton
-    //        textField.translatesAutoresizingMaskIntoConstraints = false
-    //        return textField
-    //    }()
     
     private let confirmPasswordField: UITextField = {
         let textField = UITextField()

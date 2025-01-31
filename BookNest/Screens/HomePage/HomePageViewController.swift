@@ -13,7 +13,6 @@ final class HomePageViewController: UIViewController {
         let label = UILabel()
         label.text = "Popular Books"
         label.font = UIFont(name: "Pacifico-Regular", size: 24)
-        //label.textColor = UIColor(red: 241/255, green: 95/255, blue: 44/255, alpha: 1)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -26,7 +25,6 @@ final class HomePageViewController: UIViewController {
         searchBar.layer.cornerRadius = 12
         searchBar.layer.masksToBounds = true
         searchBar.backgroundImage = UIImage()
-        //searchBar.searchTextField.backgroundColor = UIColor(white: 0.9, alpha: 1)
         searchBar.searchTextField.layer.cornerRadius = 12
         searchBar.searchTextField.clipsToBounds = true
         return searchBar
@@ -45,8 +43,6 @@ final class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
-//        collectionView.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         setupColors()
         NotificationCenter.default.addObserver(self, selector: #selector(darkModeChanged), name: .darkModeChanged, object: nil)
         
@@ -116,7 +112,6 @@ extension HomePageViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
         let book = isSearching ? filteredBooks[indexPath.item] : viewModel.books[indexPath.item]
-        //cell.configure(with: book)
         cell.configure(with: book, isDarkMode: isDarkMode)
         return cell
     }

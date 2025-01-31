@@ -62,7 +62,6 @@ final class AuthorProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         view.backgroundColor = isDarkMode ? .black : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         setupUI()
         fetchAuthorData()
@@ -140,7 +139,6 @@ final class AuthorProfileViewController: UIViewController {
     @objc private func updateColors() {
         let backgroundColor = isDarkMode ? UIColor.darkGray : UIColor(red: 250/255, green: 245/255, blue: 230/255, alpha: 1)
         let textColor = isDarkMode ? UIColor.white : UIColor.black
-        //let secondaryTextColor = isDarkMode ? UIColor.lightGray : UIColor.darkGray
         
         view.backgroundColor = backgroundColor
         nameLabel.textColor = textColor

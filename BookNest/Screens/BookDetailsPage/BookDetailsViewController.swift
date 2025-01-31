@@ -133,7 +133,6 @@ final class BookDetailsViewController: UIViewController {
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         button.layer.cornerRadius = 12
-        //button.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
