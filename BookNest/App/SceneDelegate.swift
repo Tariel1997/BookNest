@@ -8,14 +8,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let viewController = LoginViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
         
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        window.rootViewController = navigationController
+        let launchScreenVC = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
+        window.rootViewController = launchScreenVC
         self.window = window
         window.makeKeyAndVisible()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            let loginViewController = LoginViewController()
+            let navigationController = UINavigationController(rootViewController: loginViewController)
+            navigationController.navigationBar.prefersLargeTitles = true
+            self.window?.rootViewController = navigationController
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
