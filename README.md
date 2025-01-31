@@ -53,4 +53,5 @@ The project follows the MVVM (Model-View-ViewModel) architecture pattern for bet
 ## Installation:
 
 1. Clone the repository:
+   
    git clone https://github.com/Tariel1997/BookNest.git
