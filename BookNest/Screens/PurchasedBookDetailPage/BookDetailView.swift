@@ -17,6 +17,12 @@ struct BookDetailView: View {
                     titleView(book: book)
                     bookInfoView(book: book)
                     descriptionView(book: book)
+                    
+                    HStack {
+                        readButton(book: book)
+                        downloadButton(book: book)
+                    }
+                    .padding(.top, 16)
                 }
                 .padding(.horizontal)
             }
@@ -36,7 +42,6 @@ struct BookDetailView: View {
             }
         }
     }
-    
     
     @ViewBuilder
     private var loadingView: some View {
@@ -99,24 +104,22 @@ struct BookDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Author: \(book.authorName)")
                 .font(.inter(size: 16))
-                .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
+                .foregroundColor(isDarkMode ? .white : .gray)
             Text("Category: \(book.genres.joined(separator: ", "))")
                 .font(.roboto(size: 16))
-                .foregroundColor(isDarkMode ? .gray.opacity(0.7) : .gray)
+                .foregroundColor(isDarkMode ? .white : .gray)
+            Text("Language: \(book.language)")
+                .font(.roboto(size: 16))
+                .foregroundColor(isDarkMode ? .white : .gray)
+            Text("Pages: \(book.pages) pages")
+                .font(.roboto(size: 16))
+                .foregroundColor(isDarkMode ? .white : .gray)
             Text("Rating: \(String(format: "%.2f", book.rating)) / 5")
                 .font(.robotoMedium(size: 16))
-                .foregroundColor(isDarkMode ? .yellow : .orange)
+                .foregroundColor(isDarkMode ? .white : .orange)
             Text("Pricing: \(String(format: "$%.2f", book.price))")
                 .font(.headline)
                 .foregroundColor(isDarkMode ? .white : .black)
-            
-            if viewModel.isDownloading {
-                downloadProgressView
-            } else if viewModel.isDownloaded {
-                readButton
-            } else {
-                downloadButton(book: book)
-            }
         }
     }
     
@@ -135,20 +138,9 @@ struct BookDetailView: View {
     }
     
     @ViewBuilder
-    private var downloadProgressView: some View {
-        VStack {
-            Text("Downloading...")
-                .foregroundColor(isDarkMode ? .white : .black)
-            ProgressView(value: viewModel.downloadProgress)
-                .progressViewStyle(LinearProgressViewStyle())
-                .padding(.top, 8)
-        }
-    }
-    
-    @ViewBuilder
-    private var readButton: some View {
+    private func readButton(book: Book) -> some View {
         Button(action: {
-            viewModel.showPDFPreview = true
+            viewModel.downloadPDF(from: book.pdfUrl, bookTitle: book.title, saveToFiles: false)
         }) {
             Text("Read")
                 .font(.robotoMedium(size: 18))
@@ -158,22 +150,29 @@ struct BookDetailView: View {
                 .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
                 .cornerRadius(12)
         }
-        .padding(.top, 8)
     }
     
     @ViewBuilder
     private func downloadButton(book: Book) -> some View {
-        Button(action: {
-            viewModel.downloadPDF(from: book.pdfUrl)
-        }) {
-            Text("Download")
-                .font(.robotoMedium(size: 18))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
-                .cornerRadius(12)
+        VStack {
+            Button(action: {
+                viewModel.downloadPDF(from: book.pdfUrl, bookTitle: book.title, saveToFiles: true)
+            }) {
+                Text("Download")
+                    .font(.robotoMedium(size: 18))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(isDarkMode ? Color(red: 241/255, green: 95/255, blue: 44/255) : Color(red: 241/255, green: 95/255, blue: 44/255))
+                    .cornerRadius(12)
+            }
+            .disabled(viewModel.isDownloading)
+            
+            if viewModel.isDownloading && !viewModel.isDownloadingForReading {
+                ProgressView(value: viewModel.downloadProgress)
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .padding(.top, 8)
+            }
         }
-        .padding(.top, 8)
     }
 }
