@@ -38,15 +38,17 @@ struct BookItemView: View {
                     .font(.subheadline)
                     .foregroundColor(isDarkMode ? .yellow : .orange)
                 
-                HStack {
-                    ForEach(book.genres, id: \.self) { genre in
-                        Text(genre)
-                            .font(.caption)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(isDarkMode ? Color.gray.opacity(0.4) : Color.gray.opacity(0.2))
-                            .foregroundColor(isDarkMode ? .white : .black)
-                            .cornerRadius(8)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack (spacing: 5) {
+                        ForEach(book.genres, id: \.self) { genre in
+                            Text(genre)
+                                .font(.caption)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(isDarkMode ? Color.gray.opacity(0.4) : Color.gray.opacity(0.2))
+                                .foregroundColor(isDarkMode ? .white : .black)
+                                .cornerRadius(8)
+                        }
                     }
                 }
             }
